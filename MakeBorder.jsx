@@ -8,10 +8,23 @@ photoLayer.name = 'My photo';
 photoLayer.allLocked = false;
 photoLayer.isBackgroundLayer = false;
 
+function calcBorderWidth(width, height) {
+    if (width < 700 || height < 700) {
+        return 25;
+    } else if (width < 1000 || height < 1000) {
+        return 50;
+    } else if (width < 2000 || height < 2000) {
+        return 100;
+    } else {
+        return 200;
+    }
+}
+
+var borderWidth = calcBorderWidth(w, h);
 var newLayer = app.activeDocument.artLayers.add();
 app.activeDocument.artLayers[0].move(photoLayer, ElementPlacement.PLACEAFTER);
-var newWidth = new UnitValue(w + 200, 'px');
-var newHeight = new UnitValue(h + 200, 'px');
+var newWidth = new UnitValue(w + borderWidth, 'px');
+var newHeight = new UnitValue(h + borderWidth, 'px');
 app.activeDocument.resizeCanvas(newWidth, newHeight, AnchorPosition.MIDDLECENTER);
 var black = new SolidColor;
 black.rgb.hexValue = '000000';
